@@ -13,12 +13,7 @@ const ToDoList = () => {
       <Header />
 
       <InputAndSave newTodo={(newTodo) => setTodos([...todos, newTodo])} />
-      <List
-        todos={todos}
-        handleDelete={(index) =>
-          setTodos(todos.filter((todo, i) => i !== index))
-        }
-      />
+      <List todos={todos} setTodos={setTodos} />
       <Footer />
     </div>
   );

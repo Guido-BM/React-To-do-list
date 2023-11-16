@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { Checkbox, Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
-const List = ({ todos, handleDelete }) => {
-  const [checkedTasks, setCheckedTasks] = useState([]);
-  const handleCheck = (index) => {
-    const newCheckedTasks = [...checkedTasks];
-    newCheckedTasks[index] = !newCheckedTasks[index];
-    setCheckedTasks(newCheckedTasks);
+const List = ({ todos, setTodos }) => {
+  const handleDelete = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
   };
+  const handleCheck = (index) => {
+    const newTodos = [...todos];
+    newTodos[index].isStrikethrough = !newTodos[index].isStrikethrough;
+    setTodos(newTodos);
+  };
+
   return (
     <ul id="ToDoListContainer">
       {todos.map((todo, index) => (
@@ -16,8 +21,9 @@ const List = ({ todos, handleDelete }) => {
           <Checkbox
             className="custom-checkbox"
             onChange={() => handleCheck(index)}
+            checked={todo.isStrikethrough}
           >
-            <span className={checkedTasks[index] ? "strikethrough" : ""}>
+            <span className={todo.isStrikethrough ? "strikethrough" : ""}>
               {todo.text}
             </span>
           </Checkbox>
